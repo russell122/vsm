@@ -107,6 +107,52 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   myProlapse(); // end accordion
+  // tabs
+
+  var myTabs = function myTabs() {
+    var tabs = function tabs(myTargets, myContents) {
+      var targets = document.querySelectorAll(myTargets);
+      var contents = document.querySelectorAll(myContents);
+
+      if (targets.length > 1 && contents.length > 1) {
+        targets.forEach(function (target, i) {
+          target.addEventListener('click', function (e) {
+            e.preventDefault();
+            targets.forEach(function (elem) {
+              if (e.target == elem || e.target.parentNode == elem) {
+                hideElems();
+                showElems(i);
+              }
+            });
+          });
+        });
+
+        function hideElems() {
+          targets.forEach(function (target) {
+            target.classList.remove('active');
+          });
+          contents.forEach(function (cont) {
+            cont.classList.remove('show');
+            cont.classList.add('hide');
+          });
+        }
+
+        function showElems() {
+          var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+          targets[i].classList.add('active');
+          contents[i].classList.remove('hide');
+          contents[i].classList.add('show');
+        }
+
+        hideElems();
+        showElems();
+      }
+    };
+
+    tabs('.partner-el__tabs-el', '.partner__content-item');
+  };
+
+  myTabs(); //end tabs
 });
 $(document).ready(function () {
   // Мобильное меню
@@ -127,6 +173,183 @@ $(document).ready(function () {
     }, 1000);
     $('.header__burger, .header__menu').removeClass('active');
     $('body').removeClass('lock');
+  });
+  var swiper = new Swiper(".mySwiper", {
+    spaceBetween: 0,
+    slidesPerView: 1,
+    loop: true,
+    // freeMode: true,
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+    onlyExternal: false,
+    allowTouchMove: false // preventClicks: true,
+    // thumbs: {
+    // 	swiper: swiper,
+    // },
+
+  });
+  var swiper2 = new Swiper(".mySwiper2", {
+    spaceBetween: 30,
+    slidesPerView: 10,
+    loop: true,
+    // freeMode: true,
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+    slideToClickedSlide: true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
+    },
+    thumbs: {
+      swiper: swiper
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 4,
+        spaceBetween: 20
+      },
+      576: {
+        slidesPerView: 4,
+        spaceBetween: 20
+      },
+      767: {
+        slidesPerView: 4,
+        spaceBetween: 20
+      },
+      992: {
+        slidesPerView: 6,
+        spaceBetween: 30
+      },
+      1200: {
+        slidesPerView: 8,
+        spaceBetween: 30
+      },
+      1601: {
+        slidesPerView: 10,
+        spaceBetween: 30
+      }
+    },
+    autoplay: {
+      delay: 5000
+    }
+  });
+  var swiper21 = new Swiper(".mySwiper21", {
+    spaceBetween: 0,
+    slidesPerView: 1,
+    loop: true,
+    // freeMode: true,
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+    onlyExternal: false,
+    allowTouchMove: false // preventClicks: true,
+    // thumbs: {
+    // 	swiper: swiper,
+    // },
+
+  });
+  var swiper23 = new Swiper(".mySwiper23", {
+    spaceBetween: 30,
+    slidesPerView: 3,
+    loop: true,
+    // freeMode: true,
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+    slideToClickedSlide: true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
+    },
+    thumbs: {
+      swiper: swiper21
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 3,
+        spaceBetween: 20
+      },
+      576: {
+        slidesPerView: 3,
+        spaceBetween: 20
+      },
+      767: {
+        slidesPerView: 3,
+        spaceBetween: 20
+      },
+      992: {
+        slidesPerView: 3,
+        spaceBetween: 30
+      },
+      1200: {
+        slidesPerView: 3,
+        spaceBetween: 30
+      },
+      1601: {
+        slidesPerView: 3,
+        spaceBetween: 30
+      }
+    },
+    autoplay: {
+      delay: 5000
+    }
+  });
+  var swiper22 = new Swiper(".mySwiper22", {
+    spaceBetween: 0,
+    slidesPerView: 1,
+    loop: true,
+    // freeMode: true,
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+    onlyExternal: false,
+    allowTouchMove: false // preventClicks: true,
+    // thumbs: {
+    // 	swiper: swiper,
+    // },
+
+  });
+  var swiper24 = new Swiper(".mySwiper24", {
+    spaceBetween: 30,
+    slidesPerView: 3,
+    loop: true,
+    // freeMode: true,
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+    slideToClickedSlide: true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
+    },
+    thumbs: {
+      swiper: swiper22
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 3,
+        spaceBetween: 20
+      },
+      576: {
+        slidesPerView: 4,
+        spaceBetween: 20
+      },
+      767: {
+        slidesPerView: 4,
+        spaceBetween: 20
+      },
+      992: {
+        slidesPerView: 6,
+        spaceBetween: 30
+      },
+      1200: {
+        slidesPerView: 7,
+        spaceBetween: 30
+      },
+      1601: {
+        slidesPerView: 9,
+        spaceBetween: 30
+      }
+    },
+    autoplay: {
+      delay: 5000
+    }
   });
   var swiper3 = new Swiper('.top__slider-sl', {
     autoHeight: true,
@@ -168,6 +391,9 @@ $(document).ready(function () {
         slidesPerView: 4,
         spaceBetween: 0
       }
+    },
+    autoplay: {
+      delay: 5000
     }
   });
   var swiper4 = new Swiper('.foto__gal-sl', {
@@ -210,6 +436,9 @@ $(document).ready(function () {
         slidesPerView: 4,
         spaceBetween: 0
       }
+    },
+    autoplay: {
+      delay: 4000
     }
   });
   var swiper5 = new Swiper('.jobs__slider', {
@@ -220,8 +449,8 @@ $(document).ready(function () {
     observer: true,
     observeParents: true,
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
+      nextEl: '.jobs-swiper-button-next',
+      prevEl: '.jobs-swiper-button-prev'
     },
     pagination: {
       el: ".swiper-pagination",
@@ -252,6 +481,9 @@ $(document).ready(function () {
         slidesPerView: 2,
         spaceBetween: 90
       }
+    },
+    autoplay: {
+      delay: 5000
     }
   });
   var swiper6 = new Swiper('.partners__slider', {
@@ -294,6 +526,9 @@ $(document).ready(function () {
         slidesPerView: 4,
         spaceBetween: 80
       }
+    },
+    autoplay: {
+      delay: 4000
     }
   });
   $('.open-magn').magnificPopup({

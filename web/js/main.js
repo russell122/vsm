@@ -59,54 +59,98 @@ document.addEventListener('DOMContentLoaded', function () {
   ymaps.ready(function () {
     var map = new ymaps.Map('map', {
       center: [55.755249, 37.617437],
-      zoom: 4
+      zoom: 3
     });
-    map.geoObjects.add(new ymaps.Placemark([55.755249, 36.317437], {
-      balloonContent: "\n\t\t\t\t\t<div class=\"map__block\">\n\t\t\t\t\t\t<img class=\"img-cover\" src=\"web/images/content/f-1.png\">\n\t\t\t\t\t\t<h1>\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A</h1>\n\t\t\t\t\t\t<a gref=\"#\">\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u043F\u0440\u043E\u0435\u043A\u0442</a>\n\t\t\t\t\t\t<p>\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</p>\n\t\t\t\t\t</div>\n\t\t\t\t",
-      hintContent: 'Линейная зависимость'
-    }, {
-      iconLayout: createChipsLayout(function (zoom) {
-        // Минимальный размер метки будет 8px, а максимальный мы ограничивать не будем.
-        // Размер метки будет расти с линейной зависимостью от уровня зума.
-        return 4 * zoom + 8;
-      })
-    }));
-    map.geoObjects.add(new ymaps.Placemark([50, 30], {
-      balloonContent: "\n\t\t\t\t\t<div class=\"map__block\">\n\t\t\t\t\t\t<img class=\"img-cover\" src=\"web/images/content/f-2.png\">\n\t\t\t\t\t\t<h1>\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A</h1>\n\t\t\t\t\t\t<a gref=\"#\">\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u043F\u0440\u043E\u0435\u043A\u0442</a>\n\t\t\t\t\t\t<p>\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</p>\n\t\t\t\t\t</div>\n\t\t\t\t",
-      hintContent: 'Квадратичная зависимость'
-    }, {
-      iconLayout: createChipsLayout(function (zoom) {
-        // Минимальный размер метки будет 8px, а максимальный 200px.
-        // Размер метки будет расти с квадратичной зависимостью от уровня зума.
-        return Math.min(Math.pow(zoom, 2) + 8, 200);
-      })
-    }));
-    map.geoObjects.add(new ymaps.Placemark([51, 0], {
-      balloonContent: "\n\t\t\t\t\t<div class=\"map__block\">\n\t\t\t\t\t\t<img class=\"img-cover\" src=\"web/images/content/f-3.png\">\n\t\t\t\t\t\t<h1>\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A</h1>\n\t\t\t\t\t\t<a gref=\"#\">\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u043F\u0440\u043E\u0435\u043A\u0442</a>\n\t\t\t\t\t\t<p>\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</p>\n\t\t\t\t\t</div>\n\t\t\t\t",
-      hintContent: 'Квадратичная зависимость'
-    }, {
-      iconLayout: createChipsLayout(function (zoom) {
-        // Минимальный размер метки будет 8px, а максимальный 200px.
-        // Размер метки будет расти с квадратичной зависимостью от уровня зума.
-        return Math.min(Math.pow(zoom, 2) + 8, 200);
-      })
-    }));
-  }); // var mymap = L.map('mapid').setView([40, 0], 3);
-  // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-  // 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-  // 	}).addTo(mymap);
-  // var marker = L.marker([51.5, -0.09]).addTo(mymap);
-  // var circle = L.circle([51.508, -0.11], {
-  // 	color: 'red',
-  // 	fillColor: '#f03',
-  // 	fillOpacity: 0.5,
-  // 	radius: 500
-  // }).addTo(mymap);
-  // var polygon = L.polygon([
-  // 	[51.509, -0.08],
-  // 	[51.503, -0.06],
-  // 	[51.51, -0.047]
-  // ]).addTo(mymap);
+
+    function cr(cord1, cord2, imgLink, title, content) {
+      map.geoObjects.add(new ymaps.Placemark([cord1, cord2], {
+        balloonContent: "\n\t\t\t\t\t\t<div class=\"map__block\">\n\t\t\t\t\t\t\t<img class=\"img-cover\" src=\"web/images/content/".concat(imgLink, "\">\n\t\t\t\t\t\t\t<a class=\"title-2\" href=\"#\">").concat(title, "</a>\n\t\t\t\t\t\t\t<p>").concat(content, "</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t"),
+        hintContent: 'Линейная зависимость'
+      }, {
+        iconLayout: createChipsLayout(function (zoom) {
+          // Минимальный размер метки будет 8px, а максимальный мы ограничивать не будем.
+          // Размер метки будет расти с линейной зависимостью от уровня зума.
+          return 4 * zoom + 8;
+        })
+      }));
+    }
+
+    cr('55.755249', '36.317437', 'f-1.png', 'Заголовок', 'Описание');
+    cr('50', '30', 'f-2.png', 'Заголовок2', 'Описание2');
+    cr('51', '0', 'f-3.png', 'Заголовок3', 'Описание3'); // map.geoObjects.add(new ymaps.Placemark([55.755249, 36.317437], {
+    // 	balloonContent: `
+    // 		<div class="map__block">
+    // 			<img class="img-cover" src="web/images/content/f-1.png">
+    // 			<a class="title-2" href="#">Заголовок</a>
+    // 			<p>Описание</p>
+    // 		</div>
+    // 	`,
+    // 	hintContent: 'Линейная зависимость'
+    // }, {
+    // 	iconLayout: createChipsLayout(function (zoom) {
+    // 		// Минимальный размер метки будет 8px, а максимальный мы ограничивать не будем.
+    // 		// Размер метки будет расти с линейной зависимостью от уровня зума.
+    // 		return 4 * zoom + 8;
+    // 	})
+    // }));
+    // map.geoObjects.add(new ymaps.Placemark([50, 30], {
+    // 	balloonContent: `
+    // 		<div class="map__block">
+    // 			<img class="img-cover" src="web/images/content/f-2.png">
+    // 			<a class="title-2" href="#">Заголовок</a>
+    // 			<p>Описание</p>
+    // 		</div>
+    // 	`,
+    // 	hintContent: 'Квадратичная зависимость'
+    // }, {
+    // 	iconLayout: createChipsLayout(function (zoom) {
+    // 		// Минимальный размер метки будет 8px, а максимальный 200px.
+    // 		// Размер метки будет расти с квадратичной зависимостью от уровня зума.
+    // 		return Math.min(Math.pow(zoom, 2) + 8, 200);
+    // 	})
+    // }));
+    // map.geoObjects.add(new ymaps.Placemark([51, 0], {
+    // 	balloonContent: `
+    // 		<div class="map__block">
+    // 			<img class="img-cover" src="web/images/content/f-3.png">
+    // 			<a class="title-2" href="#">Заголовок</a>
+    // 			<p>Описание</p>
+    // 		</div>
+    // 	`,
+    // 	hintContent: 'Квадратичная зависимость'
+    // }, {
+    // 	iconLayout: createChipsLayout(function (zoom) {
+    // 		// Минимальный размер метки будет 8px, а максимальный 200px.
+    // 		// Размер метки будет расти с квадратичной зависимостью от уровня зума.
+    // 		return Math.min(Math.pow(zoom, 2) + 8, 200);
+    // 	})
+    // }));
+  }); // 	ymaps.ready(init);
+  // function init () {
+  //     var myMap = new ymaps.Map('map', {
+  //             center: [55.76, 37.64],
+  //             zoom: 3
+  //         }, {
+  //             searchControlProvider: 'yandex#search'
+  //         }),
+  //         objectManager = new ymaps.ObjectManager({
+  //             // Чтобы метки начали кластеризоваться, выставляем опцию.
+  //             clusterize: true,
+  //             // ObjectManager принимает те же опции, что и кластеризатор.
+  //             gridSize: 32,
+  //             clusterDisableClickZoom: true
+  //         });
+  //     // Чтобы задать опции одиночным объектам и кластерам,
+  //     // обратимся к дочерним коллекциям ObjectManager.
+  //     objectManager.objects.options.set('preset', 'islands#blueDotIcon');
+  //     objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+  //     myMap.geoObjects.add(objectManager);
+  //     $.ajax({
+  //         url: "web/js/data.json"
+  //     }).done(function(data) {
+  //         objectManager.add(data);
+  //     });
+  // }
   // Imask на мобильный телефон
 
   var telInputs = document.querySelectorAll('input[type="tel"]');

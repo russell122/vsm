@@ -1,0 +1,7 @@
+{
+    "features": [
+        {"cord1": "55.755249", "cord2": "36.317437", "imgLink": "f-1.png", "title": "Заголовок", "content": "Описание"},
+        {"cord1": "50", "cord2": "30", "imgLink": "f-2.png", "title": "Заголовок2", "content": "Описание2"},
+        {"cord1": "51", "cord2": "0", "imgLink": "f-3.png", "title": "Заголовок3", "content": "Описание3"}
+    ]
+}

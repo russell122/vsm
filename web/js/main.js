@@ -8,7 +8,106 @@ document.addEventListener('DOMContentLoaded', function () {
         return Array.isArray(v) ? a.concat(f(v)) : a.concat(v);
       }, []);
     }(this);
-  }; // Imask на мобильный телефон
+  };
+
+  var createChipsLayout = function createChipsLayout(calculateSize) {
+    // Создадим макет метки.
+    var Chips = ymaps.templateLayoutFactory.createClass('<div class="placemark"></div>', {
+      build: function build() {
+        Chips.superclass.build.call(this);
+        var map = this.getData().geoObject.getMap();
+
+        if (!this.inited) {
+          this.inited = true; // Получим текущий уровень зума.
+
+          var zoom = map.getZoom(); // Подпишемся на событие изменения области просмотра карты.
+
+          map.events.add('boundschange', function () {
+            // Запустим перестраивание макета при изменении уровня зума.
+            var currentZoom = map.getZoom();
+
+            if (currentZoom != zoom) {
+              zoom = currentZoom;
+              this.rebuild();
+            }
+          }, this);
+        }
+
+        var options = this.getData().options,
+            // Получим размер метки в зависимости от уровня зума.
+        size = calculateSize(map.getZoom()),
+            element = this.getParentElement().getElementsByClassName('placemark')[0],
+            // По умолчанию при задании своего HTML макета фигура активной области не задается,
+        // и её нужно задать самостоятельно.
+        // Создадим фигуру активной области "Круг".
+        circleShape = {
+          type: 'Circle',
+          coordinates: [0, 0],
+          radius: size / 2
+        }; // Зададим высоту и ширину метки.
+
+        element.style.width = element.style.height = size + 'px'; // Зададим смещение.
+
+        element.style.marginLeft = element.style.marginTop = -size / 2 + 'px'; // Зададим фигуру активной области.
+
+        options.set('shape', circleShape);
+      }
+    });
+    return Chips;
+  };
+
+  ymaps.ready(function () {
+    var map = new ymaps.Map('map', {
+      center: [55.755249, 37.617437],
+      zoom: 4
+    });
+    map.geoObjects.add(new ymaps.Placemark([55.755249, 36.317437], {
+      balloonContent: "\n\t\t\t\t\t<div class=\"map__block\">\n\t\t\t\t\t\t<img class=\"img-cover\" src=\"web/images/content/f-1.png\">\n\t\t\t\t\t\t<h1>\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A</h1>\n\t\t\t\t\t\t<a gref=\"#\">\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u043F\u0440\u043E\u0435\u043A\u0442</a>\n\t\t\t\t\t\t<p>\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</p>\n\t\t\t\t\t</div>\n\t\t\t\t",
+      hintContent: 'Линейная зависимость'
+    }, {
+      iconLayout: createChipsLayout(function (zoom) {
+        // Минимальный размер метки будет 8px, а максимальный мы ограничивать не будем.
+        // Размер метки будет расти с линейной зависимостью от уровня зума.
+        return 4 * zoom + 8;
+      })
+    }));
+    map.geoObjects.add(new ymaps.Placemark([50, 30], {
+      balloonContent: "\n\t\t\t\t\t<div class=\"map__block\">\n\t\t\t\t\t\t<img class=\"img-cover\" src=\"web/images/content/f-2.png\">\n\t\t\t\t\t\t<h1>\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A</h1>\n\t\t\t\t\t\t<a gref=\"#\">\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u043F\u0440\u043E\u0435\u043A\u0442</a>\n\t\t\t\t\t\t<p>\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</p>\n\t\t\t\t\t</div>\n\t\t\t\t",
+      hintContent: 'Квадратичная зависимость'
+    }, {
+      iconLayout: createChipsLayout(function (zoom) {
+        // Минимальный размер метки будет 8px, а максимальный 200px.
+        // Размер метки будет расти с квадратичной зависимостью от уровня зума.
+        return Math.min(Math.pow(zoom, 2) + 8, 200);
+      })
+    }));
+    map.geoObjects.add(new ymaps.Placemark([51, 0], {
+      balloonContent: "\n\t\t\t\t\t<div class=\"map__block\">\n\t\t\t\t\t\t<img class=\"img-cover\" src=\"web/images/content/f-3.png\">\n\t\t\t\t\t\t<h1>\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A</h1>\n\t\t\t\t\t\t<a gref=\"#\">\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u043F\u0440\u043E\u0435\u043A\u0442</a>\n\t\t\t\t\t\t<p>\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435</p>\n\t\t\t\t\t</div>\n\t\t\t\t",
+      hintContent: 'Квадратичная зависимость'
+    }, {
+      iconLayout: createChipsLayout(function (zoom) {
+        // Минимальный размер метки будет 8px, а максимальный 200px.
+        // Размер метки будет расти с квадратичной зависимостью от уровня зума.
+        return Math.min(Math.pow(zoom, 2) + 8, 200);
+      })
+    }));
+  }); // var mymap = L.map('mapid').setView([40, 0], 3);
+  // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+  // 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+  // 	}).addTo(mymap);
+  // var marker = L.marker([51.5, -0.09]).addTo(mymap);
+  // var circle = L.circle([51.508, -0.11], {
+  // 	color: 'red',
+  // 	fillColor: '#f03',
+  // 	fillOpacity: 0.5,
+  // 	radius: 500
+  // }).addTo(mymap);
+  // var polygon = L.polygon([
+  // 	[51.509, -0.08],
+  // 	[51.503, -0.06],
+  // 	[51.51, -0.047]
+  // ]).addTo(mymap);
+  // Imask на мобильный телефон
 
   var telInputs = document.querySelectorAll('input[type="tel"]');
 
